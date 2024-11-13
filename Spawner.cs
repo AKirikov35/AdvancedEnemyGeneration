@@ -60,11 +60,13 @@ public class Spawner : MonoBehaviour
         if (enemy is BlueCube blueCube)
         {
             _blueCubeFactory.SetTarget(target);
+            blueCube.transform.position = _blueCubeSpawnPoint.position;
             blueCube.Init(target);
         }
         else if (enemy is RedCube redCube)
         {
             _redCubeFactory.SetTarget(target);
+            redCube.transform.position = _redCubeSpawnPoint.position;
             redCube.Init(target);
         }
 
