@@ -15,10 +15,10 @@ public class Spawner : MonoBehaviour
     private BlueCubeFactory _blueCubeFactory;
     private WaitForSeconds _waitForSeconds;
 
-    private int _poolCapacity = 10;
-    private int _poolMaxSize = 20;
+    private readonly int _poolCapacity = 10;
+    private readonly int _poolMaxSize = 20;
 
-    private float _delay = 2.0f;
+    private readonly float _delay = 2.0f;
 
     private bool _isActive;
 
@@ -59,12 +59,12 @@ public class Spawner : MonoBehaviour
 
         if (enemy is BlueCube blueCube)
         {
-            _blueCubeFactory.GetTarget(target);
+            _blueCubeFactory.SetTarget(target);
             blueCube.Init(target);
         }
         else if (enemy is RedCube redCube)
         {
-            _redCubeFactory.GetTarget(target);
+            _redCubeFactory.SetTarget(target);
             redCube.Init(target);
         }
 
@@ -74,8 +74,22 @@ public class Spawner : MonoBehaviour
 
     private void ReleaseAction(Enemy enemy)
     {
-        enemy.gameObject.SetActive(false);
+        enemy.gameObject.SetActive(false);    
         enemy.HasDestroy -= ReleaseAction;
+        ReleaseInPool(enemy);
+    }
+
+    private void ReleaseInPool(Enemy enemy)
+    {
+        if (enemy is BlueCube blueCube)
+        {
+            _blueCubePool.Release(blueCube);
+        }
+
+        if (enemy is RedCube redCube)
+        {
+            _redCubePool.Release(redCube);
+        }
     }
 
     private void Deactivate()
