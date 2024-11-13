@@ -1,8 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-internal interface IEnemyFactory
+public abstract class EnemyFactory : MonoBehaviour
 {
-    public Enemy CreateEnemy(Transform spawnPoint);
+    protected Enemy Prefab;
+    protected Transform Target;
 
-    public void GetTarget(Transform target);
+    public virtual Enemy CreateEnemy(Transform spawnPoint)
+    {
+        Enemy enemy = Instantiate(Prefab, spawnPoint.position, Quaternion.identity);
+        enemy.Init(Target);
+
+        return enemy;
+    }
+
+    public virtual void SetTarget(Transform target)
+    {
+        Target = target;
+    }
 }
