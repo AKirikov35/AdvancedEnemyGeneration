@@ -1,21 +1,11 @@
 using UnityEngine;
 
-public class RedCubeFactory : MonoBehaviour, IEnemyFactory
+public class RedCubeFactory : EnemyFactory
 {
     [SerializeField] private RedCube _prefab;
 
-    private Transform _target;
-
-    public Enemy CreateEnemy(Transform spawnPoint)
+    private void Awake()
     {
-        RedCube enemy = Instantiate(_prefab, spawnPoint.position, Quaternion.identity);
-        enemy.Init(_target);
-
-        return enemy;
-    }
-
-    public void GetTarget(Transform target)
-    {
-        _target = target;
+        Prefab = _prefab;
     }
 }
