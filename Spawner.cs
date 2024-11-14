@@ -87,8 +87,7 @@ public class Spawner : MonoBehaviour
         {
             _blueCubePool.Release(blueCube);
         }
-
-        if (enemy is RedCube redCube)
+        else if (enemy is RedCube redCube)
         {
             _redCubePool.Release(redCube);
         }
@@ -97,7 +96,7 @@ public class Spawner : MonoBehaviour
     private void Deactivate()
     {
         _isActive = false;
-        StopAllCoroutines();
+        StopCoroutine(SpawnCoroutine());
     }
 
     private IEnumerator SpawnCoroutine()
